@@ -9,11 +9,13 @@ import 'package:all_in_one/shared/cubit/states.dart';
 import 'package:all_in_one/shared/network/local/cache_helper.dart';
 import 'package:all_in_one/shared/network/remote/dio_helper.dart';
 import 'package:all_in_one/shared/styles/themes.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp();
   Bloc.observer = MyBlocObserver();
   DioHelper.init();
   await CacheHelper.init();
