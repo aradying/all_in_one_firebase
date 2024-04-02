@@ -12,7 +12,7 @@ class SearchCubit extends Cubit<SearchStates> {
 
   SearchModel? model;
 
-  void Search(String text) {
+  Future<void> Search(String text) async {
     emit(SearchLoadingState());
     DioHelper.postData(
       url: SEARCH,

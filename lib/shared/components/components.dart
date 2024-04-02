@@ -5,6 +5,7 @@ import 'package:all_in_one/shared/styles/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:icon_broken/icon_broken.dart';
 
 Widget defaultButton({
   double width = double.infinity,
@@ -16,6 +17,7 @@ Widget defaultButton({
 }) =>
     Container(
       width: width,
+      height: 40.0,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(
           radius,
@@ -80,6 +82,25 @@ Widget defaultFormField({
             : null,
         border: const OutlineInputBorder(),
       ),
+    );
+
+AppBar defaultAppBar({
+  required BuildContext context,
+  String? title,
+  List<Widget>? actions,
+}) =>
+    AppBar(
+      leading: IconButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        icon: const Icon(
+          IconBroken.Arrow___Left_2,
+        ),
+      ),
+      titleSpacing: 5.0,
+      title: Text(title!),
+      actions: actions,
     );
 
 Widget buildTaskItem(Map model, context) => Dismissible(

@@ -43,12 +43,19 @@ dependencies:
   conditional_builder_null_safety: ^0.0.6
   dio: ^5.4.1
   hexcolor: ^3.0.1
-  shared_preferences: ^2.2.2
+  shared_preferences: ^2.2.2 # cach helper
   webview_flutter: ^3.0.4
   smooth_page_indicator: ^1.1.0
   fluttertoast: ^8.2.4
   carousel_slider: ^4.2.1
+  icon_broken: ^1.1.0
+  image_picker: ^1.0.7
+
+  #firebase
   firebase_core: ^2.27.1
+  firebase_auth: ^4.17.9
+  cloud_firestore: ^4.15.10
+  firebase_storage: ^11.6.11
 
 dev_dependencies:
   flutter_test:

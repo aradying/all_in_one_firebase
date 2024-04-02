@@ -44,38 +44,38 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyC4MdixX2jeOZnGgobEMXk9Ml30yzd7LFc',
-    appId: '1:270259997268:web:12c2ff2cb6c5db5917fbc1',
-    messagingSenderId: '270259997268',
-    projectId: 'all-in-one-ea1b2',
-    authDomain: 'all-in-one-ea1b2.firebaseapp.com',
-    storageBucket: 'all-in-one-ea1b2.appspot.com',
-    measurementId: 'G-DRB14D5WC8',
+    apiKey: 'AIzaSyDSSCaRsz29V51tMEx0-a9EubY-X2-lf6s',
+    appId: '1:57995396:web:f0cde058ef53721c4ed2d1',
+    messagingSenderId: '57995396',
+    projectId: 'all-in-one-cf264',
+    authDomain: 'all-in-one-cf264.firebaseapp.com',
+    storageBucket: 'all-in-one-cf264.appspot.com',
+    measurementId: 'G-RE0XF5RTGE',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyD75g6Tnmnfrvc4C013zW2vTnyps-rSxTA',
-    appId: '1:270259997268:android:9dde6cec2d2c8e2917fbc1',
-    messagingSenderId: '270259997268',
-    projectId: 'all-in-one-ea1b2',
-    storageBucket: 'all-in-one-ea1b2.appspot.com',
+    apiKey: 'AIzaSyCjHiB85B_uFPf9qIDXEOTgamTc-Jw3TVo',
+    appId: '1:57995396:android:09ce70b8f3812c934ed2d1',
+    messagingSenderId: '57995396',
+    projectId: 'all-in-one-cf264',
+    storageBucket: 'all-in-one-cf264.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCJ68zOeXdjdmNEI6SQgoMJFr7MzuvAX-c',
-    appId: '1:270259997268:ios:7f70b468716f181317fbc1',
-    messagingSenderId: '270259997268',
-    projectId: 'all-in-one-ea1b2',
-    storageBucket: 'all-in-one-ea1b2.appspot.com',
+    apiKey: 'AIzaSyBZDV3YASV7tWowEeAawAjgCovfVVipIdY',
+    appId: '1:57995396:ios:b95316dbb03e80394ed2d1',
+    messagingSenderId: '57995396',
+    projectId: 'all-in-one-cf264',
+    storageBucket: 'all-in-one-cf264.appspot.com',
     iosBundleId: 'com.example.allInOne',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyCJ68zOeXdjdmNEI6SQgoMJFr7MzuvAX-c',
-    appId: '1:270259997268:ios:8940e19b1b29de6517fbc1',
-    messagingSenderId: '270259997268',
-    projectId: 'all-in-one-ea1b2',
-    storageBucket: 'all-in-one-ea1b2.appspot.com',
+    apiKey: 'AIzaSyBZDV3YASV7tWowEeAawAjgCovfVVipIdY',
+    appId: '1:57995396:ios:de3ef5831cc058d44ed2d1',
+    messagingSenderId: '57995396',
+    projectId: 'all-in-one-cf264',
+    storageBucket: 'all-in-one-cf264.appspot.com',
     iosBundleId: 'com.example.allInOne.RunnerTests',
   );
 }
