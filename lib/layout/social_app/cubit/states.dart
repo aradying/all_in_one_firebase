@@ -35,7 +35,4 @@ class SocialUploadCoverImageErrorState extends SocialStates {}
 class SocialUserUpdateLoadingState extends SocialStates {}
 
 class SocialUserUpdateErrorState extends SocialStates {
-  final String error;
-
-  SocialUserUpdateErrorState(this.error);
 }
