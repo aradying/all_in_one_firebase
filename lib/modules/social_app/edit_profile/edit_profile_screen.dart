@@ -1,7 +1,6 @@
 import 'package:all_in_one/layout/social_app/cubit/cubit.dart';
 import 'package:all_in_one/layout/social_app/cubit/states.dart';
 import 'package:all_in_one/shared/components/components.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icon_broken/icon_broken.dart';
@@ -85,7 +84,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   image: DecorationImage(
                                     image: coverImage == null
                                         ? NetworkImage('${userModel.cover}')
-                                        : FileImage(coverImage) as ImageProvider,
+                                        : FileImage(coverImage)
+                                            as ImageProvider,
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -157,10 +157,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   },
                                   text: 'Upload Profile',
                                 ),
-                                // SizedBox(
-                                //   height: 5.0,
-                                // ),
-                                // const LinearProgressIndicator(),
+                                if (state
+                                    is SocialUploadProfileImageLoadingState)
+                                  const SizedBox(
+                                    height: 5.0,
+                                  ),
+                                if (state
+                                    is SocialUploadProfileImageLoadingState)
+                                  const LinearProgressIndicator(),
                               ],
                             ),
                           ),
@@ -172,13 +176,21 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             child: Column(
                               children: [
                                 defaultButton(
-                                  function: () {},
+                                  function: () {
+                                    SocialCubit.get(context).uploadCoverImage(
+                                      name: nameController.text,
+                                      phone: phoneController.text,
+                                      bio: bioController.text,
+                                    );
+                                  },
                                   text: 'Upload Cover',
                                 ),
-                                // SizedBox(
-                                //   height: 5.0,
-                                // ),
-                                // const LinearProgressIndicator(),
+                                if (state is SocialUploadCoverImageLoadingState)
+                                  const SizedBox(
+                                    height: 5.0,
+                                  ),
+                                if (state is SocialUploadCoverImageLoadingState)
+                                  const LinearProgressIndicator(),
                               ],
                             ),
                           ),

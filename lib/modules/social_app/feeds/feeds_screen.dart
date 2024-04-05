@@ -1,89 +1,106 @@
+import 'package:all_in_one/layout/social_app/cubit/cubit.dart';
+import 'package:all_in_one/layout/social_app/cubit/states.dart';
+import 'package:all_in_one/models/social_user_model/post_model.dart';
 import 'package:all_in_one/shared/styles/colors.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icon_broken/icon_broken.dart';
 
 class FeedsScreen extends StatelessWidget {
-  const FeedsScreen({super.key});
+  FeedsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      child: Column(
-        children: [
-          Card(
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            elevation: 5.0,
-            margin: const EdgeInsets.all(
-              8.0,
-            ),
-            child: Stack(
-              alignment: AlignmentDirectional.bottomEnd,
+    return BlocConsumer<SocialCubit, SocialStates>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        return ConditionalBuilder(
+          condition: SocialCubit.get(context).posts.length > 0 &&
+              SocialCubit.get(context).userModel != null,
+          builder: (context) => SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Column(
               children: [
-                const Image(
-                  image: NetworkImage(
-                      'https://img.freepik.com/free-photo/young-emotional-surprised-man_155003-4728.jpg?w=1380&t=st=1711855239~exp=1711855839~hmac=d2f601c9a21f7168196ca6324e6f93e008a1721e5558d5c43ee69d7b651d2cf2'),
-                  fit: BoxFit.cover,
-                  height: 200.0,
-                  width: double.infinity,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'Communicate with friends',
-                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                          color: Colors.black,
-                        ),
+                Card(
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  elevation: 5.0,
+                  margin: EdgeInsets.all(
+                    8.0,
                   ),
+                  child: Stack(
+                    alignment: AlignmentDirectional.bottomEnd,
+                    children: [
+                      Image(
+                        image: NetworkImage(
+                            'https://img.freepik.com/free-photo/young-emotional-surprised-man_155003-4728.jpg?w=1380&t=st=1711855239~exp=1711855839~hmac=d2f601c9a21f7168196ca6324e6f93e008a1721e5558d5c43ee69d7b651d2cf2'),
+                        fit: BoxFit.cover,
+                        height: 200.0,
+                        width: double.infinity,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          'Communicate with friends',
+                          style:
+                              Theme.of(context).textTheme.titleMedium!.copyWith(
+                                    color: Colors.black,
+                                  ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                ListView.separated(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) => buildPostItem(
+                      SocialCubit.get(context).posts[index], context, index),
+                  separatorBuilder: (context, index) => SizedBox(
+                    height: 8.0,
+                  ),
+                  itemCount: SocialCubit.get(context).posts.length,
+                ),
+                SizedBox(
+                  height: 8.0,
                 ),
               ],
             ),
           ),
-          ListView.separated(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) => buildPostItem(context),
-            separatorBuilder: (context, index) => const SizedBox(
-              height: 8.0,
-            ),
-            itemCount: 10,
-          ),
-          const SizedBox(
-            height: 8.0,
-          ),
-        ],
-      ),
+          fallback: (context) => Center(child: CircularProgressIndicator()),
+        );
+      },
     );
   }
 
-  Widget buildPostItem(context) => Card(
+  Widget buildPostItem(PostModel model, context, index) => Card(
         clipBehavior: Clip.antiAliasWithSaveLayer,
         elevation: 5.0,
-        margin: const EdgeInsets.symmetric(
+        margin: EdgeInsets.symmetric(
           horizontal: 8.0,
         ),
         child: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: EdgeInsets.all(10.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
-                  const CircleAvatar(
+                  CircleAvatar(
                     radius: 25.0,
-                    backgroundImage: NetworkImage(
-                        'https://img.freepik.com/free-photo/boxer-demonstrating-his-biceps-feels-powerful_144627-47843.jpg?w=1380&t=st=1711857019~exp=1711857619~hmac=adffd7e9d2d4106bb65a14d1a4fcc62f302189535508b57a3bae36b382143e76'),
+                    backgroundImage: NetworkImage('${model.image}'),
                   ),
-                  const SizedBox(
+                  SizedBox(
                     width: 15.0,
                   ),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Row(
+                        Row(
                           children: [
                             Text(
-                              'Ahmed Sayed',
+                              '${model.name}',
                               style: TextStyle(
                                 height: 1.4,
                               ),
@@ -99,7 +116,7 @@ class FeedsScreen extends StatelessWidget {
                           ],
                         ),
                         Text(
-                          'January 21, 2024 at 11:00 pm',
+                          '${model.dateTime}',
                           style: Theme.of(context)
                               .textTheme
                               .bodySmall!
@@ -108,11 +125,11 @@ class FeedsScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(
+                  SizedBox(
                     width: 15.0,
                   ),
                   IconButton(
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.more_horiz,
                       size: 16.0,
                     ),
@@ -121,7 +138,7 @@ class FeedsScreen extends StatelessWidget {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(
+                padding: EdgeInsets.symmetric(
                   vertical: 15.0,
                 ),
                 child: Container(
@@ -131,11 +148,11 @@ class FeedsScreen extends StatelessWidget {
                 ),
               ),
               Text(
-                '﴿ اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلَّا بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلَّا بِمَا شَاءَ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ وَلاَ يَؤُودُهُ حِفْظُهُمَا وَهُوَ الْعَلِيُّ الْعَظِيمُ ﴾',
+                '${model.text}',
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               Padding(
-                padding: const EdgeInsets.only(
+                padding: EdgeInsets.only(
                   bottom: 10.0,
                   top: 5.0,
                 ),
@@ -144,7 +161,7 @@ class FeedsScreen extends StatelessWidget {
                   child: Wrap(
                     children: [
                       Padding(
-                        padding: const EdgeInsetsDirectional.only(
+                        padding: EdgeInsetsDirectional.only(
                           end: 6.0,
                         ),
                         child: SizedBox(
@@ -166,7 +183,7 @@ class FeedsScreen extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsetsDirectional.only(
+                        padding: EdgeInsetsDirectional.only(
                           end: 6.0,
                         ),
                         child: SizedBox(
@@ -191,22 +208,27 @@ class FeedsScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
-                height: 140.0,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(
-                    4.0,
+              if (model.postImage != '')
+                Padding(
+                  padding: EdgeInsetsDirectional.only(
+                    top: 15.0,
                   ),
-                  image: const DecorationImage(
-                    image: NetworkImage(
-                        'https://img.freepik.com/free-psd/ramadan-mubarak-3d-banner-design-template_47987-19386.jpg?t=st=1711862844~exp=1711866444~hmac=b1dff0cf5107021d4bb35b4d476fbf7235c59550053bacc064bd9ae4f41716fa&w=1380'),
-                    fit: BoxFit.cover,
+                  child: Container(
+                    height: 140.0,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        4.0,
+                      ),
+                      image: DecorationImage(
+                        image: NetworkImage('${model.postImage}'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                 ),
-              ),
               Padding(
-                padding: const EdgeInsets.symmetric(
+                padding: EdgeInsets.symmetric(
                   vertical: 5.0,
                 ),
                 child: Row(
@@ -214,21 +236,22 @@ class FeedsScreen extends StatelessWidget {
                     Expanded(
                       child: InkWell(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(
+                          padding: EdgeInsets.symmetric(
                             vertical: 5.0,
                           ),
                           child: Row(
                             children: [
-                              const Icon(
+                              Icon(
                                 IconBroken.Heart,
                                 size: 16.0,
                                 color: Colors.green,
                               ),
-                              const SizedBox(
+                              SizedBox(
                                 width: 5.0,
                               ),
+                              if(SocialCubit.get(context).likes != 0)
                               Text(
-                                '255,000',
+                                '${SocialCubit.get(context).likes[index]}',
                                 style: Theme.of(context).textTheme.bodySmall,
                               ),
                             ],
@@ -240,22 +263,22 @@ class FeedsScreen extends StatelessWidget {
                     Expanded(
                       child: InkWell(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(
+                          padding: EdgeInsets.symmetric(
                             vertical: 5.0,
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              const Icon(
+                              Icon(
                                 IconBroken.Chat,
                                 size: 16.0,
                                 color: Colors.purple,
                               ),
-                              const SizedBox(
+                              SizedBox(
                                 width: 5.0,
                               ),
                               Text(
-                                '255,000 comment',
+                                '0 comment',
                                 style: Theme.of(context).textTheme.bodySmall,
                               ),
                             ],
@@ -268,7 +291,7 @@ class FeedsScreen extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(
+                padding: EdgeInsets.only(
                   bottom: 10.0,
                 ),
                 child: Container(
@@ -283,12 +306,12 @@ class FeedsScreen extends StatelessWidget {
                     child: InkWell(
                       child: Row(
                         children: [
-                          const CircleAvatar(
+                          CircleAvatar(
                             radius: 18.0,
                             backgroundImage: NetworkImage(
-                                'https://img.freepik.com/free-photo/boxer-demonstrating-his-biceps-feels-powerful_144627-47843.jpg?w=1380&t=st=1711857019~exp=1711857619~hmac=adffd7e9d2d4106bb65a14d1a4fcc62f302189535508b57a3bae36b382143e76'),
+                                '${SocialCubit.get(context).userModel!.image}'),
                           ),
-                          const SizedBox(
+                          SizedBox(
                             width: 15.0,
                           ),
                           Text(
@@ -306,12 +329,12 @@ class FeedsScreen extends StatelessWidget {
                   InkWell(
                     child: Row(
                       children: [
-                        const Icon(
+                        Icon(
                           IconBroken.Heart,
                           size: 16.0,
                           color: Colors.green,
                         ),
-                        const SizedBox(
+                        SizedBox(
                           width: 5.0,
                         ),
                         Text(
@@ -320,7 +343,10 @@ class FeedsScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      SocialCubit.get(context)
+                          .likePost(SocialCubit.get(context).postsId[index]);
+                    },
                   ),
                 ],
               ),
