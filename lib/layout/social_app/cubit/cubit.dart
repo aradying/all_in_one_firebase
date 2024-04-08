@@ -35,11 +35,11 @@ class SocialCubit extends Cubit<SocialStates> {
 
   int currentIndex = 0;
   List<Widget> screens = [
-    FeedsScreen(),
-    ChatsScreen(),
-    NewPostScreen(),
-    UsersScreen(),
-    SettingsScreen(),
+    const FeedsScreen(),
+    const ChatsScreen(),
+    const NewPostScreen(),
+    const UsersScreen(),
+    const SettingsScreen(),
   ];
 
   List<String> titles = [

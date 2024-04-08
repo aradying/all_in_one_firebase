@@ -1,15 +1,18 @@
 import 'package:all_in_one/layout/social_app/cubit/cubit.dart';
 import 'package:all_in_one/layout/social_app/cubit/states.dart';
 import 'package:all_in_one/shared/components/components.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icon_broken/icon_broken.dart';
 
-class NewPostScreen extends StatelessWidget {
-  NewPostScreen({super.key});
+class NewPostScreen extends StatefulWidget {
+  const NewPostScreen({super.key});
 
+  @override
+  State<NewPostScreen> createState() => _NewPostScreenState();
+}
+
+class _NewPostScreenState extends State<NewPostScreen> {
   var textController = TextEditingController();
 
   @override
@@ -42,16 +45,16 @@ class NewPostScreen extends StatelessWidget {
             ],
           ),
           body: Padding(
-            padding: EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
                 if (state is SocialCreatePostLoadingState)
-                  LinearProgressIndicator(),
+                  const LinearProgressIndicator(),
                 if (state is SocialCreatePostLoadingState)
-                  SizedBox(
+                  const SizedBox(
                     height: 10.0,
                   ),
-                Row(
+                const Row(
                   children: [
                     CircleAvatar(
                       radius: 25.0,
@@ -74,13 +77,13 @@ class NewPostScreen extends StatelessWidget {
                 Expanded(
                   child: TextFormField(
                     controller: textController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'What is on yor mind ...',
                       border: InputBorder.none,
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20.0,
                 ),
                 if (SocialCubit.get(context).postImage != null)
@@ -115,7 +118,7 @@ class NewPostScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                SizedBox(
+                const SizedBox(
                   height: 20.0,
                 ),
                 Row(
@@ -126,7 +129,7 @@ class NewPostScreen extends StatelessWidget {
                         {
                           SocialCubit.get(context).getPostImage();
                         },
-                        child: Row(
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(
@@ -145,7 +148,7 @@ class NewPostScreen extends StatelessWidget {
                     Expanded(
                       child: TextButton(
                         onPressed: () {},
-                        child: Text(
+                        child: const Text(
                           '# tags ',
                         ),
                       ),
