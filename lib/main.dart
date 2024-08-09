@@ -72,7 +72,8 @@ class MyApp extends StatelessWidget {
             ..getUserData(),
         ),
         BlocProvider(
-          create: (BuildContext context) => SocialCubit()..getUserData()..getPosts(),
+          create: (BuildContext context) => SocialCubit()..getUserData()
+            ..getPosts(),
         ),
       ],
       child: BlocConsumer<AppCubit, AppStates>(
@@ -94,3 +95,4 @@ class MyApp extends StatelessWidget {
 }
 // abullah@gmail.com 1234567
 // aradying@gmail.com 123456
+// ahmed@gmail.com 123456
